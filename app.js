@@ -1,6 +1,6 @@
 let search = document.querySelector("input");
 let btn = document.querySelector("button");
-let temper = document.querySelector("h1");
+let temper = document.querySelector(".temp");
 let cityname = document.querySelector("h2");
 let hum = document.querySelector("#hum");
 let win = document.querySelector("#win");
@@ -14,6 +14,7 @@ const apikey = "30299f89108d83901da7ff275296409a";
 
 async function checkwheather(city) {
     const response = await fetch(apiurl + city + "&appid=" + apikey);   
+    var data = await response.json();
     if(response.status == 404){
         com.style.display = "none";
         error.style.display = "contents";
@@ -23,7 +24,8 @@ async function checkwheather(city) {
         com.style.display = "none";
         error.style.display = "none";
         show.style.display = "contents";
-        var data = await response.json();
+        console.log(data);
+        console.log(data.main.temp);
     temper.innerText = Math.round(data.main.temp) + "°C";
     cityname.innerText = data.name;
     hum.innerText = data.main.humidity + "%";
